@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import ShowState from "./components/ShowState";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [number, setNumber] = useState(0);
+  const [text, setText] = useState(0);
+
+  const increaseNumber = () => {
+    setNumber((prev) => prev + 1);
+  };
+
+  const decreaseNumber = () => {
+    setNumber((prev) => prev - 1);
+  };
+
+  const onChangeText = (e) => {
+    setText(e.target.value);
+  };
 
   return (
-    <div className="App">
+    <div>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <button onClick={increaseNumber}>+</button>
+        <button onClick={decreaseNumber}>+</button>
+        <input type="text" placeholder="Change Text" onChange={onChangeText} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ShowState number={number} text={text} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
