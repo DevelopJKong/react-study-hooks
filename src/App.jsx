@@ -1,34 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useCallback, useState } from "react";
+import List from "./components/List";
+const App = () => {
+  const [number, setNumber] = useState("");
+  const [dark, setDark] = useState("");
 
-function App() {
-  const [count, setCount] = useState(0)
+  const getItems = useCallback(() => {
+    return [number, number + 1, number + 2];
+  }, [number]);
+
+  const theme = {
+    backgroundColor: dark ? "#333" : "#fff",
+    color: dark ? "#fff" : "#333",
+  };
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div style={theme}>
+      <input type="number" value={number} onChange={(e) => setNumber(parseInt(e.target.value))} />
+      <button onClick={() => setDark((prev) => !prev)}>테마변경</button>
+      <List getItems={getItems} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
